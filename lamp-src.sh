@@ -15,6 +15,8 @@ get_src(){
 	
 	wget http://mirror.bit.edu.cn/apache//apr/apr-util-1.6.0.tar.gz
 	wget http://mirror.bit.edu.cn/apache//apr/apr-1.6.2.tar.gz
+	
+	wget https://downloads.mysql.com/archives/get/file/mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
 }
 
 unpack(){
@@ -64,6 +66,4 @@ chkconfig --add httpd
 chkconfig on httpd
 
 
-
-wget https://downloads.mysql.com/archives/get/file/mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
-
+tar xvf mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz -C $PREFIX
