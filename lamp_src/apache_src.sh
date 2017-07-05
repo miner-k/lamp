@@ -10,18 +10,20 @@
 yum -y groupinstall "Development tools"
 yum -y install expat-devel
 
+#  Httpd depend on the package
+yum -y install pcre-devel
 get_src(){
 	wget http://mirror.bit.edu.cn/apache//httpd/httpd-2.4.26.tar.gz
 	
 	wget http://mirror.bit.edu.cn/apache//apr/apr-util-1.6.0.tar.gz
 	wget http://mirror.bit.edu.cn/apache//apr/apr-1.6.2.tar.gz
 	
-	wget https://downloads.mysql.com/archives/get/file/mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
+#	wget https://downloads.mysql.com/archives/get/file/mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
 }
 
 unpack(){
 	tar -xf $1
-	dir=echo $apr | awk -F'.tar' '{print $1}'
+	dir=$(echo $1 | awk -F'.tar' '{print $1}')
 	cd $dir
 }
 
@@ -35,7 +37,13 @@ apr_pkg=apr-1.6.2.tar.gz
 apr_util_pkg=apr-util-1.6.0.tar.gz
 httpd_pkg=httpd-2.4.26.tar.gz
 httpd_config=/etc/httpd
+
+
+get_src
+
 unpack $apr_pkg
+sed -i "/RM='\$RM/s//& -f/" configure
+./configure --prefix=$PREFIX/apr
 install
 
 unpack $apr_util_pkg
@@ -65,5 +73,4 @@ cp httpd /etc/init.d/
 chkconfig --add httpd
 chkconfig on httpd
 
-
-tar xvf mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz -C $PREFIX
+service httpd start

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 yum install libaio
-wget https://downloads.mysql.com/archives/get/file/mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
+wget https://downloads.mysql.com/archives/get/file/mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz --no-check-certificate
 
 PACK=mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
 PREFIX=/usr/local/
