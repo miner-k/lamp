@@ -28,8 +28,8 @@ cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
 chmod +x /etc/init.d/php-fpm
 chkconfig --add php-fpm
 
-cd /usr/local/php/
-cp etc/php-fpm.conf{.default,}
+cd /usr/local/php/etc/
+cp php-fpm.conf{.default,}
 cp php-fpm.d/www.conf{.default,}
 
 
@@ -50,13 +50,14 @@ service php-fpm start
 
 # Apache config
 HTTP_CONF=/etc/httpd/httpd.conf
+FPM_IP=127.0.0.1
 
 sed -i '/mod_proxy.so/s/#//' $HTTP_CONF
 sed -i '/mod_proxy_fcgi.so/s/#//' $HTTP_CONF
 
-sed -i '/^ServerName/a ProxyPassMatch ^/(.*\.php)$ fcgi://FPM_IP:9000/var/www/$1' $HTTP_CONF
-sed -i '/^ServerName/a ProxyRequests Off' $HTTP_CONF
+sed -i "/^#ServerName/a ProxyPassMatch ^/(.*\.php)$ fcgi://$FPM_IP:9000/www/\$1" $HTTP_CONF
+sed -i '/^#ServerName/a ProxyRequests Off' $HTTP_CONF
 sed -i '/ DirectoryIndex /s//& index.php /' $HTTP_CONF
 
-service httpd start
+service httpd restart
 
