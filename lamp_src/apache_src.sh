@@ -1,25 +1,21 @@
 #!/bin/bash
 #
 #author : miner-k
-#os: centos
+#os: centos6.5
 #version:v0.1.1
 #
 
 
+PREFIX=/usr/local
+apr_pkg=apr-1.6.2.tar.gz
+apr_util_pkg=apr-util-1.6.0.tar.gz
+httpd_pkg=httpd-2.4.26.tar.gz
+httpd_config=/etc/httpd
 
-yum -y groupinstall "Development tools"
-yum -y install expat-devel
 
-#  Httpd depend on the package
+#  Httpd depend on the packages
 yum -y install pcre-devel
-get_src(){
-	wget http://mirror.bit.edu.cn/apache//httpd/httpd-2.4.26.tar.gz
-	
-	wget http://mirror.bit.edu.cn/apache//apr/apr-util-1.6.0.tar.gz
-	wget http://mirror.bit.edu.cn/apache//apr/apr-1.6.2.tar.gz
-	
-#	wget https://downloads.mysql.com/archives/get/file/mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
-}
+yum -y install expat-devel
 
 unpack(){
 	tar -xf $1
@@ -32,14 +28,8 @@ install(){
 	make install
 	cd ..
 }
-PREFIX=/usr/local
-apr_pkg=apr-1.6.2.tar.gz
-apr_util_pkg=apr-util-1.6.0.tar.gz
-httpd_pkg=httpd-2.4.26.tar.gz
-httpd_config=/etc/httpd
 
 
-get_src
 
 unpack $apr_pkg
 sed -i "/RM='\$RM/s//& -f/" configure

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-wget http://cn2.php.net/get/php-7.1.6.tar.gz/from/this/mirror
 
 PREFIX=/usr/local
 PACK=php-7.1.6.tar.gz
@@ -15,10 +14,10 @@ yum -y install bzip2-devel
 
 tar -xvf $PACK -C $PREFIX
 cd $PREFIX/$DIR
-./configure --prefix=/usr/local/php \
-	--with-mysql-sock=/usr/local/mysql \
+./configure --prefix=$PREFIX/php \
+	--with-mysql-sock=$PREFIX/mysql \
 	--with-openssl \
-	--with-mysqli=/usr/local/mysql/bin/mysql_config \
+	--with-mysqli=$PREFIX/mysql/bin/mysql_config \
 	--enable-mbstring \
 	--with-freetype-dir \
 	--with-jpeg-dir \
@@ -27,7 +26,7 @@ cd $PREFIX/$DIR
 	--with-libxml-dir=/usr \
 	--enable-xml  \
 	--enable-sockets \
-	--with-apxs2=/usr/local/apache/bin/apxs \
+	--with-apxs2=$PREFIX/apache/bin/apxs \
 	--with-config-file-path=/etc \
 	--with-config-file-scan-dir=/etc/php.d \
 	--with-bz2  
@@ -36,7 +35,7 @@ cd $PREFIX/$DIR
 make
 make install
 cp php.ini-production /etc/php.ini
-cd /usr/local/php
+cd $PREFIX/php
 
 create_index(){
 	case $1 in
