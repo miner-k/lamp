@@ -1,19 +1,20 @@
 #!/bin/bash
 
 
-PREFIX=/usr/local
-PACK=php-7.1.6.tar.gz
-DIR=$(echo $PACK | awk -F'.tar' '{print $1}')
-INDEX_DIR=${PREFIX}/apache/htdocs/index.php
-HTTPD_CONFIG=/etc/httpd/httpd.conf
+#PREFIX=/usr/local
+#PHP_PACK=php-7.1.6.tar.gz
+#INDEX_PHP_DIR=${PREFIX}/apache/htdocs/index.php
+#HTTPD_CONFIG=/etc/httpd/httpd.conf
+
+PHP_DIR=$(echo $PHP_PACK | awk -F'.tar' '{print $1}')
 
 yum -y install libxml2 libxml2-devel
 yum -y install openssl openssl-devel
 yum -y install bzip2-devel
 
 
-tar -xvf $PACK -C $PREFIX
-cd $PREFIX/$DIR
+tar -xvf $PHP_PACK -C $PREFIX
+cd $PREFIX/$PHP_DIR
 ./configure --prefix=$PREFIX/php \
 	--with-mysql-sock=$PREFIX/mysql \
 	--with-openssl \
@@ -39,13 +40,13 @@ cd $PREFIX/php
 
 create_index(){
 	case $1 in
-		one)cat <<-EOFF > $INDEX_DIR
+		one)cat <<-EOFF > $INDEX_PHP_DIR
 		    <?php
 		       phpinfo();
 		    ?>
 EOFF
 		    ;;
-		two)cat <<-EOF > $INDEX_DIR
+		two)cat <<-EOF > $INDEX_PHP_DIR
 		    <?php
 		     \$mysqli = new mysqli("localhost", "root", "","mysql");
 		      if (\$mysqli->connect_errno) {

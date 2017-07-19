@@ -39,7 +39,7 @@ INITLOG_ARGS=""
 # work correctly with a thread-based MPM; notably PHP will refuse to start.
 
 # Path to the apachectl script, server binary, and short-form for messages.
-apachectl=/usr/local/apache/bin/apachectl
+apachectl=${APACHECTL-/usr/local/apache/bin/apachectl}
 httpd=${HTTPD-/usr/local/apache/bin/httpd}
 prog=httpd
 pidfile=${PIDFILE-/var/run/httpd.pid}

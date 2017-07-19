@@ -5,11 +5,11 @@
 # OS:centos6.5
 
 
-PACK=mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
-PREFIX=/usr/local/
-DIR=$(echo $PACK | awk -F'.tar' '{print $1}')
-DATADIR=/var/lib/mysql
+#MySQL_PACK=mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
+#PREFIX=/usr/local/
+#DATADIR=/var/lib/mysql
 
+DIR=$(echo $MySQL_PACK | awk -F'.tar' '{print $1}')
 
 # install packages which MySQL depend on
 yum install libaio
@@ -17,7 +17,7 @@ yum install libaio
 
 groupadd mysql
 useradd -r -g mysql -s /bin/false mysql
-tar -xf $PACK  -C $PREFIX 
+tar -xf $MySQL_PACK  -C $PREFIX 
 cd $PREFIX
 ln -sv $DIR  mysql
 cd mysql

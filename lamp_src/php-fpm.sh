@@ -3,10 +3,10 @@
 # Author:miner_k
 # version: 0.1.1
 
-PREFIX=/usr/local
-WEB_DATA=/www
-HTTP_CONF=/etc/httpd/httpd.conf
-FPM_IP=127.0.0.1
+#PREFIX=/usr/local
+#WEB_DATA=/www
+#HTTP_CONF=/etc/httpd/httpd.conf
+#FPM_IP=127.0.0.1
 
 
 yum -y install libxml2 libxml2-devel openssl openssl-devel bzip2-devel
@@ -38,10 +38,10 @@ chkconfig --add php-fpm
 
 cd $PREFIX/php/etc/
 cp php-fpm.conf{.default,}
-cp php-fpm.d$WEB_DATA.conf{.default,}
+cp php-fpm.d/www.conf{.default,}
 
 
-sed -i '/^listen/s/127.0.0.1/0.0.0.0/' $PREFIX/php/etc/php-fpm.d$WEB_DATA.conf
+sed -i '/^listen/s/127.0.0.1/0.0.0.0/' $PREFIX/php/etc/php-fpm.d/www.conf
 if [ ! -d $WEB_DATA ];then
 	mkdir $WEB_DATA/
 fi
@@ -61,12 +61,12 @@ service php-fpm start
 # HTTP_CONF=/etc/httpd/httpd.conf
 # FPM_IP=127.0.0.1
 
-sed -i '/mod_proxy.so/s/#//' $HTTP_CONF
-sed -i '/mod_proxy_fcgi.so/s/#//' $HTTP_CONF
-
-sed -i "/^#ServerName/a ProxyPassMatch ^/(.*\.php)$ fcgi://$FPM_IP:9000$WEB_DATA/\$1" $HTTP_CONF
-sed -i '/^#ServerName/a ProxyRequests Off' $HTTP_CONF
-sed -i '/ DirectoryIndex /s//& index.php /' $HTTP_CONF
-
-service httpd restart
-
+#sed -i '/mod_proxy.so/s/#//' $HTTP_CONF
+#sed -i '/mod_proxy_fcgi.so/s/#//' $HTTP_CONF
+#
+#sed -i "/^#ServerName/a ProxyPassMatch ^/(.*\.php)$ fcgi://$FPM_IP:9000$WEB_DATA/\$1" $HTTP_CONF
+#sed -i '/^#ServerName/a ProxyRequests Off' $HTTP_CONF
+#sed -i '/ DirectoryIndex /s//& index.php /' $HTTP_CONF
+#
+#service httpd restart
+#
