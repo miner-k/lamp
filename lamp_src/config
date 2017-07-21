@@ -1,4 +1,5 @@
-# config
+#!/bin/bash
+## config
 
 PREFIX=/usr/local
 
@@ -6,36 +7,37 @@ PREFIX=/usr/local
 
 APR_PKG=apr-1.6.2.tar.gz
 APR_UTIL_PKG=apr-util-1.6.0.tar.gz
-HTTPD_PKG=httpd-2.4.26.tar.gz
+HTTPD_PKG=httpd-2.4.27.tar.gz
 HTTPD_CONFIG_DIR=/etc/httpd
 
 APACHECTL=${PREFIX}/apache/bin/apachectl
 HTTPD=${PREFIX}/apache/bin/httpd
 
-
+export PREFIX APR_PKG APR_UTIL_PKG HTTPD_PKG HTTPD_CONFIG_DIR APACHECTL HTTPD
 
 # MySQL variables
 
 MySQL_PACK=mysql-5.7.17-linux-glibc2.5-x86_64.tar.gz
 DATADIR=/var/lib/mysql 
 
-
+export MySQL_PACK DATADIR
 
 # PHP-module varibales
 
-PHP_PACK=php-7.1.6.tar.gz
+PHP_PACK=php-7.0.21.tar.gz
 INDEX_PHP_DIR=${PREFIX}/apache/htdocs/index.php
 HTTPD_CONFIG=${HTTPD_CONFIG_DIR}/httpd.conf
 
-
+export PHP_PACK INDEX_PHP_DIR HTTPD_CONFIG
 
 # PHP-fpm variables
 
 WEB_DATA=/www
-
+export WEB_DATA
 
 # Apache_PHP-fpm variales
 
 HTTP_CONF=${HTTPD_CONFIG}
 FPM_IP=127.0.0.1
+export HTTP_CONF FPM_IP
 
