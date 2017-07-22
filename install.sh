@@ -11,12 +11,13 @@ menu(){
 	##############################################################
 	If all are executed on a server at steps 1, 2, 3, 4 steps
 
-	1.get packages of LAMP(apache2.4.26 + MySQL5.7.17 + PHP 7.1.6)
+	1.get packages of LAMP(apache2.4.27 + MySQL5.7.17 + PHP 7.0)
 	2.install apache
 	3.install MySQL
 	4.install PHP(module)
 	5.install PHP-fpm
 	6.modify the Apache configuration file
+	7.Load environment variables
 	q.exit
 	##############################################################
 	EOF
@@ -41,6 +42,8 @@ do
 		5) bash php-fpm.sh
 		;;
 		6) bash apache_php-fpm.sh
+		;;
+		7) bash create_porfile.sh
 		;;
 		q) exit 0
 		;;
