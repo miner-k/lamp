@@ -1,6 +1,5 @@
 #!/bin/bash
 
-PREFIX=/usr/local
 PROFILE_DIR=/etc/profile.d
 
 set_path(){

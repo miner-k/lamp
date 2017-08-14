@@ -7,12 +7,15 @@
 #WEB_DATA=/www
 #HTTP_CONF=/etc/httpd/httpd.conf
 #FPM_IP=127.0.0.1
+#PHP_PACK=php-7.0.21.tar.gz
+
+PHP_DIR=$(echo $PHP_PACK | awk -F'.tar' '{print $1}')
 
 
 yum -y install libxml2 libxml2-devel openssl openssl-devel bzip2-devel
 
-tar -xvf php-7.1.6.tar.gz
-cd php-7.1.6
+tar -xvf $PHP_PACK
+cd $PHP_DIR
  ./configure --prefix=$PREFIX/php \
 	--with-openssl \
 	--with-mysqli=$PREFIX/mysql/bin/mysql_config \
